@@ -2,6 +2,7 @@ package com.admin.middleware.controllers;
 
 import com.admin.middleware.models.User;
 import com.admin.middleware.services.UserService;
+import com.admin.middleware.services.impl.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
