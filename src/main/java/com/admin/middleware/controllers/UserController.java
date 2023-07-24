@@ -2,7 +2,6 @@ package com.admin.middleware.controllers;
 
 import com.admin.middleware.models.User;
 import com.admin.middleware.services.UserService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
