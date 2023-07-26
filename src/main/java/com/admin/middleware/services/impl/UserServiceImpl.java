@@ -7,6 +7,7 @@ import com.admin.middleware.repositories.UserRepository;
 import com.admin.middleware.services.UserService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -23,5 +24,14 @@ public class UserServiceImpl implements UserService {
         Optional<UserDocument> userDocument = userRepository.findById(id);
         if(userDocument.isEmpty()) return new User();
         return userMapper.userDocumentToUserObject(userDocument.get());
+    }
+
+    //TODO: Accept one object and destruct it accordingly
+    @Override
+    public User addNewUser(User user) {
+        UserDocument userDocument = userMapper.userToUserDocument(user);
+        userDocument.setDateCreated(LocalDateTime.now());
+
+        return userMapper.userDocumentToUserObject(userRepository.save(userDocument));
     }
 }

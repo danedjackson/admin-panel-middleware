@@ -14,7 +14,22 @@ public class UserMapper {
         user.setUserName(userDocument.getUserName());
         user.setFirstName(userDocument.getFirstName());
         user.setLastName(userDocument.getLastName());
+        user.setDateOfBirth(userDocument.getDateOfBirth());
+        user.setIsAdmin(userDocument.getIsAdmin());
 
         return user;
+    }
+
+    public UserDocument userToUserDocument(User user) {
+
+        return new UserDocument(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUserName(),
+                user.getDateOfBirth(),
+                null,
+                user.getIsAdmin()
+                );
     }
 }

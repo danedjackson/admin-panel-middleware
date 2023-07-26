@@ -19,8 +19,8 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping()
-    public String home() {
-        return "HELLO";
+    @PostMapping("/user/add")
+    public User addUser(@RequestBody User user) {
+        return userService.addNewUser(user);
     }
 }

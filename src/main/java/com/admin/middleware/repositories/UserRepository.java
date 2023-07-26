@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends MongoRepository<UserDocument, String> {
     //Custom query annotation which takes the parameter id as search criteria (?0)
-    @Query("{id:'?0'}")
+    @Query("{_id: ?0}")
     Optional<UserDocument> findById(String id);
 
     List<UserDocument> findAll();
