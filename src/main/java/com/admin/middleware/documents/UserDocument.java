@@ -1,6 +1,7 @@
 package com.admin.middleware.documents;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Document("users")
 @Data
+@NoArgsConstructor
 public class UserDocument {
     @Id
     private String id;

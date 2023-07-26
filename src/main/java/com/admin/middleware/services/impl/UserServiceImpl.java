@@ -2,9 +2,11 @@ package com.admin.middleware.services.impl;
 
 import com.admin.middleware.documents.UserDocument;
 import com.admin.middleware.mapping.UserMapper;
+import com.admin.middleware.models.ApiResponse;
 import com.admin.middleware.models.User;
 import com.admin.middleware.repositories.UserRepository;
 import com.admin.middleware.services.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,18 +22,42 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    public User getUserById(String id) {
+    public ApiResponse getUserById(String id) {
         Optional<UserDocument> userDocument = userRepository.findById(id);
-        if(userDocument.isEmpty()) return new User();
-        return userMapper.userDocumentToUserObject(userDocument.get());
+        if(userDocument.isEmpty()) {
+            return new ApiResponse(
+                    HttpStatus.NOT_FOUND,
+                    null,
+                    "User with given ID was not found."
+            );
+        };
+        User foundUser = userMapper.userDocumentToUserObject(userDocument.get());
+        return new ApiResponse(
+                HttpStatus.OK,
+                foundUser,
+                "User with given ID was found."
+        );
     }
 
-    //TODO: Accept one object and destruct it accordingly
-    @Override
-    public User addNewUser(User user) {
-        UserDocument userDocument = userMapper.userToUserDocument(user);
-        userDocument.setDateCreated(LocalDateTime.now());
+    public ApiResponse addNewUser(User user) {
+        //Change this function return type to contain HTTP Status Code to show user already exists
+        if(userRepository.findByUserName(user.getUserName()).isPresent()) {
+            return new ApiResponse(
+                    HttpStatus.ALREADY_REPORTED,
+                    null,
+                    "This username already exists"
+            );
+        }
 
-        return userMapper.userDocumentToUserObject(userRepository.save(userDocument));
+        UserDocument userDocument = userMapper.userToUserDocument(user);
+        if (userDocument.getDateCreated() == null){userDocument.setDateCreated(LocalDateTime.now());}
+
+        User savedUser =  userMapper.userDocumentToUserObject(userRepository.save(userDocument));
+
+        return new ApiResponse(
+          HttpStatus.OK,
+          savedUser,
+          "Successfully saved user"
+        );
     }
 }

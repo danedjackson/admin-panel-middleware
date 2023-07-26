@@ -1,9 +1,13 @@
 package com.admin.middleware.controllers;
 
+import com.admin.middleware.models.ApiResponse;
 import com.admin.middleware.models.User;
 import com.admin.middleware.services.UserService;
 import com.admin.middleware.services.impl.UserServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api")
@@ -15,12 +19,12 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable String id) {
+    public ApiResponse getUserById(@PathVariable String id) {
         return userService.getUserById(id);
     }
 
     @PostMapping("/user/add")
-    public User addUser(@RequestBody User user) {
+    public ApiResponse addUser(@RequestBody User user) {
         return userService.addNewUser(user);
     }
 }

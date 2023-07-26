@@ -15,4 +15,7 @@ public interface UserRepository extends MongoRepository<UserDocument, String> {
     Optional<UserDocument> findById(String id);
 
     List<UserDocument> findAll();
+
+    @Query("{userName: ?0}")
+    Optional<UserDocument> findByUserName(String username);
 }
