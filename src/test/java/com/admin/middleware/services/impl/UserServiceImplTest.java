@@ -5,6 +5,7 @@ import com.admin.middleware.mapping.UserMapper;
 import com.admin.middleware.models.User;
 import com.admin.middleware.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -53,16 +56,14 @@ class UserServiceImplTest {
                 .thenReturn(user);
         when(userRepository.save(userDocument))
                 .thenReturn(userDocument);
-    }
 
-    @BeforeEach
-    public void initializeService() {
         userService = new UserServiceImpl(userRepository, userMapper);
     }
 
     @Test
     @DisplayName("Testing User Service save method")
-    public void defaultUserExists() {
+    public void testAddNewUser_Success() {
+        //Given
         User expectedUser = new User(
                 "64c094983611cc2b119007fa",
                 "denise",
@@ -71,8 +72,32 @@ class UserServiceImplTest {
                 LocalDateTime.parse("1990-09-23T13:53:53.672"),
                 true
         );
-        //Test if user object is returned on addNewUser function call
-        assertEquals(expectedUser, userService.addNewUser(expectedUser).getResponse());
+        // When
+        User resultUser = (User) userService.addNewUser(expectedUser).getResponse();
+
+        // Then
+        assertEquals(expectedUser, resultUser);
+        verify(userRepository).save(any(UserDocument.class));
     }
 
+    @Test
+    @Disabled("Temporarily disabled for refining")
+    @DisplayName("Testing User Service get method")
+    public void testGetUser_Success() {
+        //Given
+        User expectedUser = new User(
+                "64c094983611cc2b119007fa",
+                "denise",
+                "jackson",
+                "denisejack",
+                LocalDateTime.parse("1990-09-23T13:53:53.672"),
+                true
+        );
+
+        //When
+        User actualUser = (User) userService.getUserById(expectedUser.getId()).getResponse();
+
+        //Then
+        assertEquals(expectedUser, actualUser);
+    }
 }

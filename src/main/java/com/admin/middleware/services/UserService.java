@@ -7,6 +7,6 @@ import com.admin.middleware.models.User;
 import java.time.LocalDateTime;
 
 public interface UserService {
-    ApiResponse getUserById(String id);
-    ApiResponse addNewUser(User user);
+    ApiResponse<User> getUserById(String id);
+    ApiResponse<User> addNewUser(User user);
 }

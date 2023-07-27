@@ -22,27 +22,29 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    public ApiResponse getUserById(String id) {
+    @Override
+    public ApiResponse<User> getUserById(String id) {
         Optional<UserDocument> userDocument = userRepository.findById(id);
         if(userDocument.isEmpty()) {
-            return new ApiResponse(
+            return new ApiResponse<>(
                     HttpStatus.NOT_FOUND,
                     null,
                     "User with given ID was not found."
             );
         };
         User foundUser = userMapper.userDocumentToUserObject(userDocument.get());
-        return new ApiResponse(
+        return new ApiResponse<>(
                 HttpStatus.OK,
                 foundUser,
                 "User with given ID was found."
         );
     }
 
-    public ApiResponse addNewUser(User user) {
+    @Override
+    public ApiResponse<User> addNewUser(User user) {
         //Change this function return type to contain HTTP Status Code to show user already exists
         if(userRepository.findByUserName(user.getUserName()).isPresent()) {
-            return new ApiResponse(
+            return new ApiResponse<>(
                     HttpStatus.ALREADY_REPORTED,
                     null,
                     "This username already exists"
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
         User savedUser =  userMapper.userDocumentToUserObject(userRepository.save(userDocument));
 
-        return new ApiResponse(
+        return new ApiResponse<>(
           HttpStatus.OK,
           savedUser,
           "Successfully saved user"
