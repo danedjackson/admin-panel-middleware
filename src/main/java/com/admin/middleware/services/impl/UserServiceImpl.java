@@ -1,11 +1,11 @@
 package com.admin.middleware.services.impl;
 
 import com.admin.middleware.documents.UserDocument;
-import com.admin.middleware.mapping.UserMapper;
+import com.admin.middleware.mappers.IUserMapper;
 import com.admin.middleware.models.ApiResponse;
 import com.admin.middleware.models.User;
-import com.admin.middleware.repositories.UserRepository;
-import com.admin.middleware.services.UserService;
+import com.admin.middleware.repositories.IUserRepository;
+import com.admin.middleware.services.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +13,11 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
+public class UserServiceImpl implements IUserService {
+    private final IUserRepository userRepository;
+    private final IUserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    public UserServiceImpl(IUserRepository userRepository, IUserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }

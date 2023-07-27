@@ -1,12 +1,12 @@
-package com.admin.middleware.mapping.impl;
+package com.admin.middleware.mappers.impl;
 
 import com.admin.middleware.documents.UserDocument;
-import com.admin.middleware.mapping.UserMapper;
+import com.admin.middleware.mappers.IUserMapper;
 import com.admin.middleware.models.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserMapperImpl implements UserMapper {
+public class UserMapperImpl implements IUserMapper {
     public User userDocumentToUserObject(UserDocument userDocument) {
         if (userDocument.getId() == null) return new User();
 

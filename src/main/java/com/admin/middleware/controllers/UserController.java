@@ -2,28 +2,26 @@ package com.admin.middleware.controllers;
 
 import com.admin.middleware.models.ApiResponse;
 import com.admin.middleware.models.User;
-import com.admin.middleware.services.UserService;
+import com.admin.middleware.services.IUserService;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
-    private final UserService userService;
+    private final IUserService IUserService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(IUserService IUserService) {
+        this.IUserService = IUserService;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ApiResponse<User> getUserById(@PathVariable String id) {
-        return userService.getUserById(id);
+        return IUserService.getUserById(id);
     }
 
-    @PostMapping("/user/add")
+    @PostMapping("/add")
     public ApiResponse<User> addUser(@RequestBody User user) {
-        return userService.addNewUser(user);
+        return IUserService.addNewUser(user);
     }
 
 

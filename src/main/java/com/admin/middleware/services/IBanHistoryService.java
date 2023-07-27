@@ -5,7 +5,7 @@ import com.admin.middleware.models.ApiResponse;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface BanHistoryService {
+public interface IBanHistoryService {
 
     ApiResponse<BanHistoryDocument> addUserBan(BanHistoryDocument banHistoryDocument);
     ApiResponse<BanHistoryDocument> checkUserBan(String userId);

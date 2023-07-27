@@ -2,16 +2,14 @@ package com.admin.middleware.services.impl;
 
 import com.admin.middleware.documents.BanHistoryDocument;
 import com.admin.middleware.models.ApiResponse;
-import com.admin.middleware.repositories.BanHistoryRepository;
-import com.admin.middleware.services.BanHistoryService;
+import com.admin.middleware.repositories.IBanHistoryRepository;
+import com.admin.middleware.services.IBanHistoryService;
 import org.springframework.http.HttpStatus;
 
-import java.util.Optional;
+public class BanHistoryServiceImpl implements IBanHistoryService {
+    private final IBanHistoryRepository banHistoryRepository;
 
-public class BanHistoryServiceImpl implements BanHistoryService {
-    private final BanHistoryRepository banHistoryRepository;
-
-    public BanHistoryServiceImpl(BanHistoryRepository banHistoryRepository) {
+    public BanHistoryServiceImpl(IBanHistoryRepository banHistoryRepository) {
         this.banHistoryRepository = banHistoryRepository;
     }
 

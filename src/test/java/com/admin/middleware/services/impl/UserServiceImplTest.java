@@ -1,9 +1,9 @@
 package com.admin.middleware.services.impl;
 
 import com.admin.middleware.documents.UserDocument;
-import com.admin.middleware.mapping.UserMapper;
+import com.admin.middleware.mappers.IUserMapper;
 import com.admin.middleware.models.User;
-import com.admin.middleware.repositories.UserRepository;
+import com.admin.middleware.repositories.IUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -24,9 +24,9 @@ import static org.mockito.Mockito.when;
 @DisplayName("User Service Implementation Tests")
 class UserServiceImplTest {
     @Mock
-    UserRepository userRepository;
+    IUserRepository IUserRepository;
     @Mock
-    UserMapper userMapper;
+    IUserMapper IUserMapper;
     @InjectMocks
     UserServiceImpl userService;
     User user;
@@ -50,14 +50,14 @@ class UserServiceImplTest {
                 true
         );
         //Using Mockito to set up sample response data from mapper and repository
-        when(userMapper.userToUserDocument(user))
+        when(IUserMapper.userToUserDocument(user))
                 .thenReturn(userDocument);
-        when(userMapper.userDocumentToUserObject(userDocument))
+        when(IUserMapper.userDocumentToUserObject(userDocument))
                 .thenReturn(user);
-        when(userRepository.save(userDocument))
+        when(IUserRepository.save(userDocument))
                 .thenReturn(userDocument);
 
-        userService = new UserServiceImpl(userRepository, userMapper);
+        userService = new UserServiceImpl(IUserRepository, IUserMapper);
     }
 
     @Test
@@ -73,11 +73,11 @@ class UserServiceImplTest {
                 true
         );
         // When
-        User resultUser = (User) userService.addNewUser(expectedUser).getResponse();
+        User resultUser = userService.addNewUser(expectedUser).getResponse();
 
         // Then
         assertEquals(expectedUser, resultUser);
-        verify(userRepository).save(any(UserDocument.class));
+        verify(IUserRepository).save(any(UserDocument.class));
     }
 
     @Test
@@ -95,7 +95,7 @@ class UserServiceImplTest {
         );
 
         //When
-        User actualUser = (User) userService.getUserById(expectedUser.getId()).getResponse();
+        User actualUser = userService.getUserById(expectedUser.getId()).getResponse();
 
         //Then
         assertEquals(expectedUser, actualUser);
