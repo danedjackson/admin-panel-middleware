@@ -1,23 +1,19 @@
-package com.admin.middleware.documents;
+package com.admin.middleware.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Document("banhistory")
 @Data
 @AllArgsConstructor
-public class BanHistoryDocument {
-    @Id
-    private String id;
+public class UserBan {
 
     private String userId;
     private LocalDateTime dateOfBan;
-    private String bannedBy;
     private String banReason;
+    private String bannedBy;
     private String banComment;
     private Integer banDurationHours;
+
 }
