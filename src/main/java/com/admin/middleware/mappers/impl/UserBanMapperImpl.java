@@ -3,7 +3,9 @@ package com.admin.middleware.mappers.impl;
 import com.admin.middleware.documents.BanHistoryDocument;
 import com.admin.middleware.mappers.IUserBanMapper;
 import com.admin.middleware.models.UserBan;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserBanMapperImpl implements IUserBanMapper {
     @Override
     public BanHistoryDocument userBanToBanHistoryDocument(UserBan userBan) {

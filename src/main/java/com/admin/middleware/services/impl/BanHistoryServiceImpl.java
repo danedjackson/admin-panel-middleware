@@ -7,7 +7,9 @@ import com.admin.middleware.models.UserBan;
 import com.admin.middleware.repositories.IBanHistoryRepository;
 import com.admin.middleware.services.IBanHistoryService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BanHistoryServiceImpl implements IBanHistoryService {
     private final IBanHistoryRepository banHistoryRepository;
     private final IUserBanMapper banMapper;
